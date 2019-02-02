@@ -1,3 +1,4 @@
+\d .bj
 system"S ",string `long$.z.p mod `long$.z.d;                                                      / set seed to psuedo-random number
 
 //Card varuabkes
@@ -31,6 +32,13 @@ startNewGame:{
   `deck set shuffle createDeck[names;suits];
   `dealerCards`playerCards set' {x,getNextCard[]}/[2;] each (dealerCards;playerCards);            / Deal two cards for each player initally
   showStatus[];
+  nextAction[]
+ };
+
+nextAction:{
+  -1"Hit (H) or Stick (S)";
+  action:`$read0 0;
+  (`H`S!(hit;stick))[action]`
  };
 
 hit:{
@@ -38,6 +46,7 @@ hit:{
     playerCards,:getNextCard[];
     isEndGame[];
     showStatus[];
+    nextAction[]
   ];
  };
 
@@ -45,6 +54,7 @@ stick:{
   gameOver::1b;
   isEndGame[];
   showStatus[];
+  nextAction[]
  };
 
 //Helper Functions
@@ -101,5 +111,5 @@ isEndGame:{[]
   ];
  };
 
-.z.pi:{(`startNewGame`hit`stick`error "NHS" ? upper n:first -1_x)[]};                             / Limit actions of console input and redirect any other input to erro
-error:-1 "Please input either N (new game), H (hit), S (stick) \n";                               
+startNewGame[]
+error:-1 "Please input either N (new game), H (hit), S (stick) \n";
